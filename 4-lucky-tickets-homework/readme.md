@@ -5,4 +5,5 @@
 Посчитать, сколько существует счастливых 2N-значных билетов.
 Начальные данные: число N от 1 до 10.
 Вывод результата: количество 2N-значных счастливых билетов.
+
 <img src="https://github.com/letov/data-structures-and-algorithms-course-solutions/blob/main/4-lucky-tickets-homework/images/1.png?raw=true?raw=true" width="600">
