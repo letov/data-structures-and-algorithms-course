@@ -25,12 +25,12 @@ class TaskLuckyTickets: iTask {
         guard let N = Int(data[0]) else {
             return ""
         }
-        self.combinationCountArr = [[Int]].init(repeating: [Int].init(repeating: 0, count: 10),count: 10).enumerated().map {
-            (index, col) -> [Int] in
+        combinationCountArr = [[Int]].init(repeating: [Int].init(repeating: 0, count: 10),count: 10)
+            .enumerated()
+            .map { (index, col) -> [Int] in
             var coloumn = col
             coloumn[index] = 1
-            return coloumn
-        }
+            return coloumn }
         self.N = N
         nextCombinationCountArr(1)
         return result
@@ -39,17 +39,16 @@ class TaskLuckyTickets: iTask {
    private func nextCombinationCountArr(_ digitNr: Int) {
        if (digitNr >= self.N) {
             return
-        }
-        self.combinationCountArr = [[Int]].init(repeating: [Int].init(repeating: 0, count: columnSum.count + 9),count: 10).enumerated().map {
-            (index, col) -> [Int] in
+       }
+       combinationCountArr = [[Int]].init(repeating: [Int].init(repeating: 0, count: columnSum.count + 9),count: 10)
+           .enumerated()
+           .map { (index, col) -> [Int] in
             var coloumn = col
             coloumn.insert(contentsOf: columnSum, at: index)
-            return Array(coloumn[0..<columnSum.count + 9])
-        }
-        combinationCountArr = combinationCountArr.first!.indices.map { index in
-            combinationCountArr.map{ $0[index] }
-        }
-        nextCombinationCountArr(digitNr + 1)
+            return Array(coloumn[0..<columnSum.count + 9]) }
+       combinationCountArr = combinationCountArr.first!.indices.map { index in
+            combinationCountArr.map{ $0[index] } }
+       nextCombinationCountArr(digitNr + 1)
     }
     
 }
