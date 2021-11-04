@@ -46,18 +46,10 @@ class TaskLuckyTickets: iTask {
             coloumn.insert(contentsOf: columnSum, at: index)
             return Array(coloumn[0..<columnSum.count + 9])
         }
-        transposeCombinationCountArr()
-        nextCombinationCountArr(digitNr + 1)
-    }
-    
-    private func transposeCombinationCountArr() {
-        var transposed = [[Int]].init(repeating: [Int].init(repeating: 0, count: 10),count: combinationCountArr[0].count)
-        for i in 0...9 {
-            for j in 0..<combinationCountArr[0].count {
-                transposed[j][i] = combinationCountArr[i][j]
-            }
+        combinationCountArr = combinationCountArr.first!.indices.map { index in
+            combinationCountArr.map{ $0[index] }
         }
-        combinationCountArr = transposed
+        nextCombinationCountArr(digitNr + 1)
     }
     
 }
@@ -65,5 +57,3 @@ class TaskLuckyTickets: iTask {
 let task = TaskLuckyTickets()
 let tester = Tester(path: "/Users/ruslankarymov/Desktop/1.Tickets", task: task)
 tester.runTests()
-
-
