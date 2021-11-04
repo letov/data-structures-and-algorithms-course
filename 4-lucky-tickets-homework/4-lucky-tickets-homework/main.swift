@@ -32,9 +32,7 @@ class TaskLuckyTickets: iTask {
             return coloumn
         }
         self.N = N
-        if self.N != 1 {
-            nextCombinationCountArr(1)
-        }
+        nextCombinationCountArr(1)
         return result
     }
     
