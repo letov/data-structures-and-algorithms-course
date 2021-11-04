@@ -24,21 +24,23 @@ struct Tester {
                 !FileManager.default.fileExists(atPath: outFile)) {
                 break
             }
-            let result = runTest(inFile, outFile)
-            print("Test #\(i) - \(result)")
+            let (result, time) = runTest(inFile, outFile)
+            print("Test #\(i) - \(result) - \(time) ms")
             i += 1
         }
     }
     
-    private func runTest(_ inFile: String,_ outFile: String) -> Bool {
+    private func runTest(_ inFile: String,_ outFile: String) -> (Bool, Int) {
         do {
             let data = try String(contentsOfFile: inFile).components(separatedBy: "\r\n")
             let expect = try String(contentsOfFile: outFile)
+            let start = DispatchTime.now()
             let actual = task.run(data)
-            print(actual)
-            return expect == actual
+            let end = DispatchTime.now()
+            let time = (end.uptimeNanoseconds - start.uptimeNanoseconds) / 1000000
+            return (expect.trimmingCharacters(in: .whitespacesAndNewlines) == actual.trimmingCharacters(in: .whitespacesAndNewlines), Int(time))
         } catch {
-            return false
+            return (false, 0)
         }
     }
 }
