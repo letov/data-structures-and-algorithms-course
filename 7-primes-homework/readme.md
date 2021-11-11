@@ -9,4 +9,4 @@
 4. Решето Эратосфена с оптимизацией памяти: битовая матрица, по 32 значения в одном int
 5. Решето Эратосфена со сложностью O(n)
 </p>
-<img src="https://github.com/letov/data-structures-and-algorithms-course-solutions/blob/main/7-primes-homework/images/1.png?raw=true" width="600">
+<img src="https://github.com/letov/data-structures-and-algorithms-course-solutions/blob/main/7-primes-homework/images/1.png?raw=true" width="1000">
