@@ -53,12 +53,31 @@ class Fibo: iTask {
     }
     
   
-    func fiboMatrixMul(_ m1: [[Double]], _ m2: [[Double]]) -> [[Double]] {
-        let f2 = m1[0][0] * m2[0][0] + m1[0][1] * m2[1][0]
-        let f1 = m1[0][0] * m2[0][1] + m1[0][1] * m2[1][1]
-        let f0 = m1[1][0] * m2[0][1] + m1[1][1] * m2[1][1]
-        return [[f2,f1],
-                [f1,f0]]
+    func matrixMul(_ m1: [[Double]], _ m2: [[Double]]) -> [[Double]]? {
+        let rowCount1 = m1.count
+        let colCount1 = m1[0].count
+        
+        let rowCount2 = m2.count
+        let colCount2 = m2[0].count
+        
+        if (rowCount1 == 0) {
+            return []
+        }
+        
+        if colCount1 != rowCount2 {
+            return nil
+        }
+        
+        var res = [[Double]].init(repeating: [Double].init(repeating: 0.0, count: colCount2), count: rowCount1)
+        for i in 0..<rowCount1 {
+            for j in 0..<colCount2 {
+                for k in 0..<colCount1 {
+                    res[i][j] += m1[i][k] * m2[k][j]
+                }
+            }
+        }
+        
+        return res
     }
     
     // Через возведение матрицы в степень.
@@ -71,12 +90,12 @@ class Fibo: iTask {
         if N != 0 {
             var degree = 2
             while degree < (N - 1) {
-                curMatrix = fiboMatrixMul(curMatrix, curMatrix)
+                curMatrix = matrixMul(curMatrix, curMatrix)!
                 opCnt += 6
                 degree *= 2
             }
             for _ in (degree / 2)..<(N - 1) {
-                curMatrix = fiboMatrixMul(curMatrix, fiboMatrix)
+                curMatrix = matrixMul(curMatrix, fiboMatrix)!
                 opCnt += 1
             }
         }
