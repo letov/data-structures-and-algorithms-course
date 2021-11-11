@@ -8,4 +8,4 @@
 3. Через формулу золотого сечения.
 4. Через возведение матрицы в степень.
 </p>
-<img src="https://github.com/letov/data-structures-and-algorithms-course-solutions/blob/main/6-fibo-homework/images/1.png?raw=true" width="600">
+<img src="https://github.com/letov/data-structures-and-algorithms-course-solutions/blob/main/6-fibo-homework/images/1.png?raw=true" width="1000">
