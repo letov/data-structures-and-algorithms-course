@@ -9,4 +9,4 @@
 2. Через степень двойки с домножением.
 3. Через двоичное разложение показателя степени.
 </p>
-<img src="https://github.com/letov/data-structures-and-algorithms-course-solutions/blob/main/5-pow-homework/images/1.png?raw=true" width="900">
+<img src="https://github.com/letov/data-structures-and-algorithms-course-solutions/blob/main/5-pow-homework/images/1.png?raw=true" width="1000">
