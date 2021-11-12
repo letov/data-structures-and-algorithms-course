@@ -69,16 +69,9 @@ class Game {
     
     init() {
         newGame()
-        
-        //
-        var pause = true
-        
         while true {
             (key, _) = readKey()
             switch key {
-            //
-            case .f2:
-                pause = false
             case .f1:
                 exit(0)
             case .up:
@@ -91,10 +84,6 @@ class Game {
                 move(.rightDir)
             default:
                 break
-            }
-            //
-            if pause {
-                continue
             }
             if Int((DispatchTime.now().uptimeNanoseconds - time.uptimeNanoseconds) / 1000000) > timeout {
                 time = DispatchTime.now()
