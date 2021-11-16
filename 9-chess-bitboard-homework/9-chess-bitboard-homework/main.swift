@@ -102,7 +102,7 @@ class Chess: iTask {
     }
     
     func move(_ dirs: Set<Direction>, _ cnt: Int) -> UInt {
-        return dirs.reduce(into: 0) { $0 |= moveNext(bb, $1, cnt) ^ bb }
+        return dirs.reduce(into: 0) { $0 |= moveNext(bb, $1, cnt) } ^ bb
     }
     
     func moveNext(_ mask: UInt, _ dir: Direction, _ cnt: Int) -> UInt {
