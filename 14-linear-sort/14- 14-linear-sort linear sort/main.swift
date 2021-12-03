@@ -102,9 +102,37 @@ extension Array where Element == Int {
         }
     }
 
-    // K - кол во частей размером bit
-    // D - кол во вариантов размером bit
+    // K - кол-во частей размером bit
+    // D - кол-во вариантов размером bit
     mutating func radixSort(_ bit: Int) {
+        let K = Int(64 / bit)
+        let D = (pow(Decimal(2), bit) as NSDecimalNumber).intValue
+        var mask = D - 1
+        for part in 0...K {
+            var counter = [Int].init(repeating: 0, count: D)
+            for i in self {
+                let counterIndex = (i & mask) >> (part * bit)
+                counter[counterIndex] += 1
+            }
+            var prev = 0
+            for i in counter.indices {
+                counter[i] += prev
+                prev = counter[i]
+            }
+            for i in self.reversed() {
+                let counterIndex = (i & mask) >> (part * bit)
+                let index = counter[counterIndex] - 1
+                self[index] = i
+                counter[counterIndex] -= 1
+            }
+            mask <<= bit
+        }
+    }
+    
+    // если нет крупных элементов
+    // - O(maxElement) по памяти
+    // + быстрее на максимальных bit
+    mutating func radixSortA(_ bit: Int) {
         let K = Int(64 / bit)
         let D = (pow(Decimal(2), bit) as NSDecimalNumber).intValue
         var mask = D - 1
@@ -174,14 +202,14 @@ arr.countSort()
 Timer.share.stop("countSort")
 arr.sortAlert()*/
 
-let t = 1000000
+let t = 1000
 var arr = Array(1...t)
 let bits = sequence(first: 1, next: { $0 * 2 })
     .prefix(7)
 for bit in bits { // 1...64
     arr = Array(1...t)
     Timer.share.start()
-    arr.radixSort(bit)
+    arr.radixSortA(bit)
     Timer.share.stop("radixSort")
     arr.sortAlert()
 }
