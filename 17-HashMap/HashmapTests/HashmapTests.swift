@@ -44,26 +44,6 @@ class HashtableTests: XCTestCase {
         XCTAssertLessThan(collisions, 0.00001)
     }
     
-    func testDivisionCollisions() throws {
-        var unicHash = Set<Int>()
-        let testCnt = 100000
-        var M = 10
-        //measure {
-            for i in 1...testCnt {
-                let key = generateRandomString(size: 10)
-                let hashCode = HashFunc.pearson(key: key)
-                if i * 2 >= M {
-                    M = HashFunc.maxPrimeErast(M * 10)
-                }
-                let hash = HashFunc.division(key: hashCode, M: M)
-                unicHash.insert(hash)
-            }
-        //}
-        let collisions = (Double(testCnt - unicHash.count) / Double(testCnt)) * 100
-        print(collisions)
-        XCTAssertLessThan(collisions, 15)
-    }
-    
     func testMultiplicationCollisions() throws {
         var unicHash = Set<Int>()
         let testCnt = 100000
@@ -85,22 +65,37 @@ class HashtableTests: XCTestCase {
         XCTAssertLessThan(collisions, 0.00001)
     }
     
-    func testUniversalCollisions() throws {
-        var collisionsCnt = 0
+    func testDivisionCollisions() throws {
         let testCnt = 100000
+        let M = testCnt
+        var table = Array<Int>.init(repeating: 0, count: M)
         //measure {
             for _ in 1...testCnt {
                 let key = generateRandomString(size: 10)
-                let hashCode = HashFunc.pearson(key: key, maxByte: 4)
-                let hash1 = HashFunc.universal(hashCode: hashCode, hashTableCount: testCnt, randSet: 0)
-                let hash2 = HashFunc.universal(hashCode: hashCode, hashTableCount: testCnt, randSet: 1)
-                if hash1 == hash2 {
-                    collisionsCnt += 1
-                }
+                let hashCode = HashFunc.pearson(key: key)
+                let hash = HashFunc.division(key: hashCode, M: M)
+                table[hash] += 1
             }
         //}
-        let collisions = (Double(collisionsCnt) / Double(testCnt)) * 100.0
-        XCTAssertLessThan(collisions, 0.01)
+        XCTAssertLessThan(table.max()!, 10)
+    }
+
+    func testUniversalCollisions() throws {
+        let testCnt = 100000
+        let M = testCnt
+        var table = Array<Int>.init(repeating: 0, count: M)
+        //measure {
+            for _ in 1...testCnt {
+                let key = generateRandomString(size: 10)
+                let hashCode = HashFunc.pearson(key: key)
+                let P: UInt = 655360001
+                let A = UInt.random(in: 1..<P)
+                let B = UInt.random(in: 0...P)
+                let hash = HashFunc.universal(hashCode: hashCode, M: M, A: A, B: B, P: P)
+                table[hash] += 1
+            }
+        //}
+        XCTAssertLessThan(table.max()!, 10)
     }
     
     func testChainingHashRange() throws {
