@@ -1,1 +1,7 @@
-<h1>Open address and chaining hashmap. Pearson, division, multiplicaton hash.</h1>
+<h1>HashMap</h1>
+<p>pearson hashing;</p>
+<p>multiplication hashing;</p>
+<p>division hashing;</p>
+<p>universal hashing;</p>
+<p>chaining hashMap;</p>
+<p>open address hashMap;</p>
