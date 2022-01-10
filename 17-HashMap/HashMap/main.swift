@@ -72,14 +72,11 @@ class HashFunc {
         return Int((key &* 2654435769) >> (32 - P))
     }
     
-    // a > 0
-    // b >= 0
-    // p > hashCode && prime
-    static func universal(hashCode: UInt, hashTableCount : Int, randSet: Int) -> UInt {
-        let a: UInt = randSet == 0 ? 3203244807 : 8423184315
-        let b: UInt = randSet == 0 ? 2083342246 : 5684315848
-        let p: UInt = randSet == 0 ? 65634136069 : 17382113933 // is prime
-        return ((UInt(a &* hashCode) + b) % p) % UInt(hashTableCount)
+    // A > 0
+    // B >= 0
+    // P > M && prime
+    static func universal(hashCode: UInt, M : Int, A: UInt, B: UInt, P: UInt) -> Int {
+        return Int(((UInt(A &* hashCode) + B) % P) % UInt(M))
     }
 }
 
