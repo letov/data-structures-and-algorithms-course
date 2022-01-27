@@ -157,10 +157,10 @@ struct ListGraph: Graph {
             var nextEdge = next!.edgeHead
             var rowEdge = ""
             while nextEdge != nil {
-                rowEdge += "[\(nextEdge!.vertex.name)] -> "
+                rowEdge += " -> [\(nextEdge!.vertex.name)]"
                 nextEdge = nextEdge!.next
             }
-            print("\(next!.name) -> \(rowEdge)")
+            print("\(next!.name)\(rowEdge) -> []")
             next = next!.next
         }
         

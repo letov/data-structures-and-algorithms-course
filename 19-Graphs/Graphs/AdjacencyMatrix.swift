@@ -71,24 +71,29 @@ struct AdjacencyMatrix: Graph {
             .map { $0.1.key }
     }
     func printTable() {
+        let halfOffset = "   "
         let head = vertexTable.sorted(by: { $0.value < $1.value } ).reduce("") { acc, arg in
             let (vertex, _) = arg
-            let cell = "|   \(vertex)   |"
+            let cell = "|\(halfOffset)\(vertex)\(halfOffset)"
             return acc + cell
         }
-        print("  |\(head)|")
+        print("|\(halfOffset) \(halfOffset)\(head)|")
+        let headDel = (0...vertexTable.count).reduce("") { acc, vertex in
+            let cell = "|\(halfOffset)-\(halfOffset)"
+            return acc + cell
+        }
+        print("\(headDel)|")
         edgeTable.enumerated().forEach { (edgeIndex1, row) in
             let result = row.enumerated().reduce("") { acc, arg in
                 let (edgeIndex2, edge) = arg
                 var edgeExist = edge != nil ? "+" : " "
                 edgeExist = edgeIndex1 == edgeIndex2 ? "X" : edgeExist
-                let cell = "|   \(edgeExist)   |"
+                let cell = "|\(halfOffset)\(edgeExist)\(halfOffset)"
                 return acc + cell
             }
             let vertexName = vertexTable.filter { $0.value == edgeIndex1 }.first?.key ?? ""
-            print("\(vertexName) |\(result)| \(vertexName)")
+            print("|\(halfOffset)\(vertexName)\(halfOffset)\(result)|")
         }
-        print("  |\(head)|")
     }
     mutating func removeVertex(vertex: String) {
         

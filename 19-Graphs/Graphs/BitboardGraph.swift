@@ -77,21 +77,26 @@ struct BitboardGraph {
         return (bb1 & mask1 > 0) && (bb2 & mask2 > 0)
     }
     func printTable() {
+        let halfOffset = "   "
         let head = (0...(vertexCount - 1)).reduce("") { acc, vertex in
-            let cell = "|   \(vertex)   |"
+            let cell = "|\(halfOffset)\(vertex)\(halfOffset)"
             return acc + cell
         }
-        print("  |\(head)|")
+        print("|\(halfOffset) \(halfOffset)\(head)|")
+        let headDel = (0...vertexCount).reduce("") { acc, vertex in
+            let cell = "|\(halfOffset)-\(halfOffset)"
+            return acc + cell
+        }
+        print("\(headDel)|")
         (0...(vertexCount - 1)).forEach { vertex1 in
             var row = ""
             (0...(vertexCount - 1)).forEach { vertex2 in
                 var cell = hasEdge(vertex1: vertex1, vertex2: vertex2) ? "+" : " "
                 cell = vertex1 == vertex2 ? "X" : cell
-                row += "|   \(cell)   |"
+                row += "|\(halfOffset)\(cell)\(halfOffset)"
             }
-            print("\(vertex1) |\(row)| \(vertex1)")
+            print("|\(halfOffset)\(vertex1)\(halfOffset)\(row)|")
         }
-        print("  |\(head)|")
     }
     func bitCnt(bb: UInt) -> Int {
         var cnt = Int()
