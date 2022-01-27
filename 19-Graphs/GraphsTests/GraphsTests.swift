@@ -122,6 +122,7 @@ class GraphsTests: XCTestCase {
         graph.addEdge(vertex1: "A", vertex2: "C", edge: EdgeMock())
         graph.addEdge(vertex1: "A", vertex2: "D", edge: EdgeMock())
         graph.addEdge(vertex1: "B", vertex2: "D", edge: EdgeMock())
+        graph.addVertex(vertex: "E")
         graph.addEdge(vertex1: "B", vertex2: "F", edge: EdgeMock())
         graph.addEdge(vertex1: "C", vertex2: "F", edge: EdgeMock())
     }
