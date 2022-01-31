@@ -1,5 +1,6 @@
 # GraphInt
-Вершины в виде Int, ребра не содержат дополнительных данных.\\
+Вершины в виде Int, ребра не содержат дополнительных данных.  
+
 ![ ](https://github.com/letov/data-structures-and-algorithms-course/blob/main/19-Graphs/images/1.png?raw=true)
 ## BitboardGraph
 Граф хранится в матрице смежности из битбордов. Вершины заданы индексами 0...N Для нахождения вершины в матрице индекс разбивается на индекс битборда и индекс бита.
@@ -26,7 +27,8 @@
 |   5   |   1   |   2   |       |       |       |
 
 # Graph
-Вершины в виде String, ребра могут содержать информацию.
+Вершины в виде String, ребра могут содержать информацию.  
+
 ![ ](https://github.com/letov/data-structures-and-algorithms-course/blob/main/19-Graphs/images/2.png?raw=true)
 ## AdjacencyMatrix
 Граф хранится в матрице смежности. 
