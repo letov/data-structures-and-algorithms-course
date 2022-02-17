@@ -192,8 +192,11 @@ class Huffman: Compressor {
     }
     
     func compress(data: [Int8]) {
+        print("compress | generate frequency table")
         genFrequency(data: data)
+        print("compress | generate tree")
         genTree()
+        print("compress | generate codes")
         genCodes()
         genMainBitFlow(data: data)
     }
@@ -227,9 +230,11 @@ class Huffman: Compressor {
     }
     
     func decompress() -> [Int8]? {
+        print("decompress | generate tree")
         genTree()
         var result = [Int8]()
         var bitFlow = BitFlow()
+        print("decompress | decompress bits")
         for bitIndex in 0..<mainBitFlow.count {
             guard let bit = mainBitFlow.bit(at: bitIndex) else {
                 return nil
@@ -328,7 +333,9 @@ class Huffman: Compressor {
     
     func pack(data: [Int8]) -> [Int] {
         compress(data: data)
+        print("pack | pack frequency table")
         let packFrequencyTable = packFrequencyTable()
+        print("pack | pack bits")
         let packMainBitFlow = packMainBitFlow()
         return packFrequencyTable + packMainBitFlow
     }
@@ -341,7 +348,9 @@ class Huffman: Compressor {
         guard data.count > frequencyCount else {
             return nil
         }
+        print("unpack | unpack frequency table")
         unpackFrequencyTable(data: Array(data[0...frequencyCount]))
+        print("unpack | unpack bits")
         unpackMainBitFlow(data: Array(data[(frequencyCount + 1)..<data.count]))
         return decompress()
     }
@@ -383,6 +392,7 @@ class CompressFile {
         var seekOffset: Int = 0
         let readBufferSize = 100000
         repeat {
+            print("compressFile | seek: \(seekOffset), fileSize: \(fileSize)")
             do {
                 guard let data = try read(file: file, seekOffset: seekOffset, readBufferSize: readBufferSize) else {
                     return
@@ -411,6 +421,7 @@ class CompressFile {
         var seekOffset: Int = 0
         var packCount: Int = 0
         repeat {
+            print("decompressFile | seek: \(seekOffset), fileSize: \(fileSize)")
             do {
                 guard let dataCount = try read(file: file, seekOffset: seekOffset, readBufferSize: IntSize) else {
                     return
