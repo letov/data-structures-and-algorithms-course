@@ -148,7 +148,7 @@ class HuffmanTests: XCTestCase {
     }
     
     func testCompressDecompressFile() throws {
-        let inFilePath = (#file as NSString).deletingLastPathComponent + "/1.txt"
+        let inFilePath = (#file as NSString).deletingLastPathComponent + "/1.mp3"
         let outFilePathCompress = inFilePath + ".compress"
         let outFilePathDecompress = inFilePath + ".decompress"
         try cf.compressFile(inFilePath: inFilePath, outFilePath: outFilePathCompress)
@@ -157,6 +157,10 @@ class HuffmanTests: XCTestCase {
         let hash1 = SHA256.hash(data: data)
         data = FileManager.default.contents(atPath: outFilePathDecompress)!
         let hash2 = SHA256.hash(data: data)
+        let sizeOrig = try FileManager.default.attributesOfItem(atPath: inFilePath)[.size] as! Int
+        let sizeCompressed = try  FileManager.default.attributesOfItem(atPath: outFilePathCompress)[.size] as! Int
+        let effective: Float = ((Float(sizeOrig) - Float(sizeCompressed)) / Float(sizeOrig)) * 100.0
         XCTAssertEqual(hash1, hash2)
+        print(effective)
     }
 }
