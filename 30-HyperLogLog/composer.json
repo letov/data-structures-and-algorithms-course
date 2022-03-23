@@ -1,0 +1,14 @@
+{
+  "description": "description",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "ruslan",
+      "email": "email@example.com"
+    }
+  ],
+  "require": {
+    "joegreen0991/hyperloglog": "*"
+  }
+}
